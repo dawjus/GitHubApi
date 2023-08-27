@@ -1,6 +1,7 @@
 package com.example.recruitment.user;
 
 import com.example.recruitment.repository.Repository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,17 +14,11 @@ public class User {
 
     private String userName;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", reposWithoutFork=" + reposWithoutFork.toString() +
-                '}';
-    }
-
+    @JsonIgnore
     private String body;
+    @JsonIgnore
     private List<Repository> repos = new ArrayList<>();
-    private List<Repository> reposWithoutFork =new ArrayList<>();
+    private List<Repository> reposWithoutFork = new ArrayList<>();
 
     public User (String userName){
         this.userName = userName;
@@ -35,5 +30,13 @@ public class User {
 
     public void addRepoWithoutFork(Repository repo){
         reposWithoutFork.add(repo);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "\nuserName='" + userName +
+                ",\nreposWithoutFork=" + reposWithoutFork.toString() +
+                '}';
     }
 }

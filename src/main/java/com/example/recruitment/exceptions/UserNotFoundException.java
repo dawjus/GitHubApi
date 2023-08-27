@@ -1,12 +1,13 @@
 package com.example.recruitment.exceptions;
+import lombok.Getter;
 
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ProblemDetail;
-
+@Getter
 public class UserNotFoundException extends RuntimeException{
 
-    public UserNotFoundException(String userName){
-        super("User: " + userName + " not found");
+    public UserNotFoundException( String userName){
+
+        super( "Error 404 " +
+                "\nUser: " + userName + " not found");
     }
 
 }

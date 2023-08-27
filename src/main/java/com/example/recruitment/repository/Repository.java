@@ -1,6 +1,7 @@
 package com.example.recruitment.repository;
 
 import com.example.recruitment.branch.Branch;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,11 @@ import java.util.List;
 @Setter
 public class Repository {
     private String repoName;
-    private String commitSha;
-    private Boolean fork;
-    private String body;
     private List<Branch> branches;
+    @JsonIgnore
+    private Boolean fork;
+    @JsonIgnore
+    private String body;
 
     public void addBranch(Branch branch){
         branches.add(branch);
@@ -24,10 +26,9 @@ public class Repository {
 
     @Override
     public String toString() {
-        return "Repository{" +
-                "repoName='" + repoName + '\'' +
-                ", commitSha='" + commitSha + '\'' +
-                ", branches=" + branches.toString() +
+        return "Repository{\n" +
+                "\nrepoName='" + repoName +
+                ",\nbranches=" + branches.toString() +
                 '}';
     }
 }

@@ -9,9 +9,9 @@ public class Branch {
 
     @Override
     public String toString() {
-        return "Branch{" +
-                "branchName='" + branchName + '\'' +
-                ", lastCommitSha='" + lastCommitSha + '\'' +
+        return "Branch{\n"  +
+                "\nbranchName='" + branchName +
+                ",\nlastCommitSha='" + lastCommitSha +
                 '}';
     }
 

@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -28,15 +27,10 @@ public class RepositoryService {
         for (Repository repo: repositories){
             String url = "https://api.github.com/repos/" + userName +"/" +
                     repo.getRepoName() +"/branches";
-            System.out.println(url);
-            try {
-                ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-                repo.setBody(response.getBody());
-                addBranches(repo);
-            }
-            catch (RestClientException ex) {
-            }
-         //
+
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            repo.setBody(response.getBody());
+            addBranches(repo);
         }
     }
 
@@ -45,10 +39,13 @@ public class RepositoryService {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject branch = jsonArray.getJSONObject(i);
             String branchName = branch.getString("name");
-       //     String sha = repository.getBoolean("fork");
+            JSONObject commit = branch.getJSONObject("commit");
+            String sha = commit.getString("sha");
             Branch newBranch = Branch.builder()
                     .branchName(branchName)
+                    .lastCommitSha(sha)
                     .build();
+            System.out.println(newBranch);
 
             repo.addBranch(newBranch);
         }

@@ -2,6 +2,7 @@ package com.example.recruitment.user;
 import com.example.recruitment.exceptions.UserNotFoundException;
 import com.example.recruitment.repository.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,11 @@ public class UserController {
         this.repositoryService = repositoryService;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<String> homePage(){
+        return ResponseEntity.ok("Page to find repositories from github");
+    }
+
     @GetMapping("/{user}")
     public ResponseEntity<String> getGitHubData(@PathVariable String user) {
         User newUser = userService.findUser(user);
@@ -30,4 +36,6 @@ public class UserController {
             throw new UserNotFoundException(user);
         }
     }
+
+
 }
