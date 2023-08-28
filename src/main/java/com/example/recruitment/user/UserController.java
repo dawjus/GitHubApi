@@ -34,7 +34,6 @@ public class UserController {
             User newUser = optionalUser.get();
             userService.findRepository(newUser);
             repositoryService.findBranches(newUser);
-            System.out.println(newUser.getRepos().get(0).getBranches().toString());
             return ResponseEntity.ok(newUser);
         } else {
             throw new UserNotFoundException(user);
