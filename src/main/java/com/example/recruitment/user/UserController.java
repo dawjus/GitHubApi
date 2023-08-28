@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class UserController {
     private final UserService userService;
@@ -25,17 +27,20 @@ public class UserController {
     }
 
     @GetMapping("/{user}")
-    public ResponseEntity<String> getGitHubData(@PathVariable String user) {
-        User newUser = userService.findUser(user);
-        if (newUser != null) {
+    public ResponseEntity<User> getGitHubData(@PathVariable String user) {
+        Optional<User> optionalUser = userService.findUser(user);
+
+        if (optionalUser.isPresent()) {
+            User newUser = optionalUser.get();
             userService.findRepository(newUser);
             repositoryService.findBranches(newUser);
-            return ResponseEntity.ok(newUser.toString());
-        }
-        else {
+            System.out.println(newUser.getRepos().get(0).getBranches().toString());
+            return ResponseEntity.ok(newUser);
+        } else {
             throw new UserNotFoundException(user);
         }
+
+
+
     }
-
-
 }

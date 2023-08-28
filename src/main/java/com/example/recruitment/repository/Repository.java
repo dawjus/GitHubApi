@@ -2,6 +2,7 @@ package com.example.recruitment.repository;
 
 import com.example.recruitment.branch.Branch;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 public class Repository {
     private String repoName;
+    @JsonProperty("branches")
     private List<Branch> branches;
     @JsonIgnore
     private Boolean fork;

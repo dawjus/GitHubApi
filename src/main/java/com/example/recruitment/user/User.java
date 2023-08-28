@@ -2,6 +2,7 @@ package com.example.recruitment.user;
 
 import com.example.recruitment.repository.Repository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class User {
     private String body;
     @JsonIgnore
     private List<Repository> repos = new ArrayList<>();
+    @JsonProperty("repositiories")
     private List<Repository> reposWithoutFork = new ArrayList<>();
 
     public User (String userName){

@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,7 +22,7 @@ public class UserService {
         this.restTemplate = restTemplate;
     }
 
-    public User findUser(String userName){
+    public Optional<User> findUser(String userName){
         String apiUrl = "https://api.github.com/users/" + userName + "/repos";
 
         try {
@@ -30,9 +31,9 @@ public class UserService {
             String responseBody = response.getBody();
             user.setBody(responseBody);
             System.out.println(user.getUserName());
-            return user;
+            return Optional.of(user);
         } catch (RestClientException ex){
-            return null;
+            return Optional.empty();
         }
     }
 
